@@ -1,10 +1,10 @@
 import express from 'express';
-import { getChampions, getChampions, createChampions, updateChampions, deleteChampions } from '../controllers/ChampionsController.js';
+import { getChampion, getChampions, createChampions, updateChampions, deleteChampions } from '../controllers/ChampionsController.js';
 
 const router = express.Router();
 
 router.get('/', getChampions )
-router.get('/:id', getChampions )
+router.get('/:id', getChampion )
 router.post('/', createChampions )
 router.put('/:id', updateChampions )
 router.delete('/:id', deleteChampions )
