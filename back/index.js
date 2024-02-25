@@ -1,13 +1,13 @@
-const express = require('express');
-const router = require('./router');
-const cors = require('cors');
-// import router from './router';
+import express from 'express';
+import cors from 'cors';
+import router from './router.js';
 
 
 
 const app = express()
 app.use(cors())
-app.use(router);
+// app.use(router);
+app.use('/', router); 
 
 app.get('/', (req, res) => {
     res.send('Hello World')
