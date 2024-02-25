@@ -22,20 +22,6 @@
     <button onclick="createChampion()">New Champion</button>
     <div id="champions"></div>
     <script>
-        // fetch('http://localhost:3000/champions')
-        //     .then(response => response.json())
-        //     .then(champions => {
-        //         const championsDiv = document.getElementById('champions');
-        //         champions.forEach(champions => {
-        //             const championDiv = document.createElement('div');
-        //             championDiv.innerHTML = `
-        //                 <h2>${champion.name}</h2>
-        //                 <p>${champion.type}</p>
-        //             `;
-        //             champions.appendChild(championDiv);
-        //         });
-        //     });
-
         fetch('http://localhost:3000/champions')
         .then(response => response.json())
         .then(data => {
@@ -44,18 +30,18 @@
             data.forEach(champion => {
                 let championDiv = document.createElement('div');
                 championDiv.innerHTML = 
-                `<a href="agent.html?id=${champion.id}">
+                `<a href="champions.html?id=${champion.id}">
                     <h2>${champion.name}</h2>
                     </a>
                     <a href="rename.html?id=${champion.id}">Rename</a>`
                 
-                agents.appendChild(agentDiv);
+                champions.appendChild(championDiv);
             });
         });
 
             const createChampion = async () => {
             let champion = document.querySelector('input[name="champion"]').value
-            let type = document.querySelector('input[name="type"]').value
+            let type = document.querySelector('select[name="type"]').value
 
             let response = await fetch('http://localhost:3000/champions', {
                 method: 'POST',
