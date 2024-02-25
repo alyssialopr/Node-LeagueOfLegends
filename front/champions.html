@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Champion</title>
+</head>
+<body>
+
+    <div id="champion"></div>
+    <button onclick="deleteChampion()">Delete</button>
+
+    <script>
+        let url = window.location.search;
+        let id = new URLSearchParams(url).get('id');
+
+        fetch(`http://localhost:3000/champions/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            let champions = document.getElementById('champions');
+            champions.innerHTML = `<small>${data.id}</small>`
+            champions.innerHTML += `<a href="rename.html?id=${id}">Rename</a>`
+            champions.innerHTML += `<h1>${data.name}</h1>`
+            champions.innerHTML += `<a href="index.html">Back</a>`
+        });
+
+        const deletechampions = async () => {
+            await fetch (`http://localhost:3000/champions/${id}`, {
+                method: 'DELETE', 
+            })
+            window.location.href = 'index.html';
+        }
+
+    </script>
+</body>
+</html>

@@ -3,9 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>League of <Legend></Legend></title>
+    <title>League of Legends</title>
 </head>
 <body>
-    
+    <h1>Liste des champions</h1>
+    <label for="champion">Nom</label>
+        <input type="text" name="champion" />
+    <label for="type">Type</label>
+
+    <select name="type">
+        <option value="marksmen">Marksmen</option>
+        <option value="mage">Mage</option>
+        <option value="assassin">Assassin</option>
+        <option value="tank">Tank</option>
+        <option value="fighter">Fighter</option>
+        <option value="support">Support</option>
+    </select>
+    <button onclick="createChampion()">New Champion</button>
+    <div id="champions"></div>
+    <script>
+        // fetch('http://localhost:3000/champions')
+        //     .then(response => response.json())
+        //     .then(champions => {
+        //         const championsDiv = document.getElementById('champions');
+        //         champions.forEach(champions => {
+        //             const championDiv = document.createElement('div');
+        //             championDiv.innerHTML = `
+        //                 <h2>${champion.name}</h2>
+        //                 <p>${champion.type}</p>
+        //             `;
+        //             champions.appendChild(championDiv);
+        //         });
+        //     });
+
+        fetch('http://localhost:3000/champions')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            let champions = document.getElementById('champions');
+            data.forEach(champion => {
+                let championDiv = document.createElement('div');
+                championDiv.innerHTML = 
+                `<a href="agent.html?id=${champion.id}">
+                    <h2>${champion.name}</h2>
+                    </a>
+                    <a href="rename.html?id=${champion.id}">Rename</a>`
+                
+                agents.appendChild(agentDiv);
+            });
+        });
+
+            const createChampion = async () => {
+            let champion = document.querySelector('input[name="champion"]').value
+            let type = document.querySelector('input[name="type"]').value
+
+            let response = await fetch('http://localhost:3000/champions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name: champion, type: type})
+            })
+
+            window.location.href = 'index.html'
+        }
+    </script>
 </body>
 </html>
